@@ -13,6 +13,11 @@ var questionEl = document.getElementById("questions")
 var scoreEl = document.getElementById("score");
 var submitScore = document.getElementById("btn")
 var scoreIdCounter =0
+var choicesEl = document.getElementById("choices");
+var start = document.getElementById('start');
+var startEl = document.getElementById('startScreen'); 
+var saveScore = document.getElementById('save-score')
+
 
 function countDown() {
     timeLeft--
@@ -27,7 +32,6 @@ function countDown() {
 }
 
 function startQuiz() {
-    var startEl = document.getElementById('startScreen')
     startEl.setAttribute("class", "hide")
     // var questionEl = document.getElementById("questions")
     questionEl.removeAttribute("class")
@@ -36,14 +40,10 @@ function startQuiz() {
     getQuestion();
 }
 
-var start = document.getElementById('start')
-start.onclick = startQuiz
-
-var saveScore = document.getElementById('save-score')
-saveScore.onclick = enterScore
 
 
-var questions = [
+
+var questionList = [
     {
         text: "What is the correct way to declare an array in JavaScript?",
         choice1: 'var colors = "red", "green", "blue"',
@@ -102,26 +102,26 @@ var questions = [
     },
     {
         text: "What operator is used to assign a value to a vairable?",
-        choice1: "=",
-        choice2: "===",
-        choice3: "#",
-        choice4: "<<",
-        answer: "1"
+        choices: [ "=", "===", "#", "<<"] ,
+        answer: "="
     },
 ];
 
 function getQuestion() {
-    currentQ = questions[questionIndex]
-    var questions = document.getElementById("questions")
-    questions.textContent = currentQ.question
+    var currentQ = questionList[questionIndex]
+    console.log("Current Question " , currentQ);
+    questionEl.textContent = currentQ.text; 
 
-    for (var i = 0; i < currentQ.questions.length; i++) {
+    for (var i = 0; i < currentQ.choices.length; i++) {
+        //Create a button 
         var button = document.createElement("button")
         button.setAttribute("id", [i]);
-        button.textContent = currentQ.questions[i]
-        button.onclick = function () {
+        button.textContent = currentQ.choices[i]
 
-            if (currentQ.answer == event.target.id) {
+        button.onclick = function (e) {
+            e.preventDefault(); 
+            console.log(e);
+            if (currentQ.answer == e.target.value) {
                 // var result = document.getElementById("result")
                 resultEl.textContent = "Correct" ;
                 // resultEl.appendChild(result)
@@ -133,7 +133,7 @@ function getQuestion() {
             }
         }
         // console.log(button)
-        choices.appendChild(button)
+        choicesEl.appendChild(button)
         // questions[i].question
     }
    
@@ -144,13 +144,12 @@ function getQuestion() {
 function buttonClick() {
     if (questionIndex < questions.length-1) {
         questionIndex++
-        var choices = document.getElementById("choices")
-        choices.innerHTML = ""
+        choicesEl.innerHTML = ""
         getQuestion();
 
     } else {
         endGame();
-        enterScore();
+        //enterScore();
     }
 }
 function endGame() {
@@ -195,4 +194,10 @@ var createScoreEl = function(){
     listItemEl.setAttribute("data-score-id", scoreIdCounter);
     
 }
+
+
+start.onclick = startQuiz; 
+
+saveScore.onclick = enterScore; 
+
 loadScores();

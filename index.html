@@ -3,37 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Game</title>
     <link rel="stylesheet" href="./assets/style.css">
+    <title>Code Quiz</title>
 </head>
+
 <body>
-    <div class ='highScores'>
-        <a href = "highscores.html">View High Scores</a>
-    </div>
-    <div class = "timer">
-        <span id="time"></span>
-    </div>
-    <div class="container">
-        <div id = "startScreen" class="start">
-            <h1>Coding Quiz Challenge!</h1>
+
+    <a href="scores.html">View Highscores</a>
+    <div id="wrapper">
+        <div id="currentTime"></div>
+        <div id="questions">
+            <h1>Coding Quiz Challenge</h1>
             <p>Try to answer the following code-related questions within the time limit.<br>Keep in mind that incorrect answers will penalize your score/time by 10 seconds.</p>
-            <button id = "start">Start Quiz</button>
-        </div>
-        <div id="questions" class="hide">
-        </div>
-        <div id ="score" class="hide">
-            <form id="score-form">
-                <div class="form-group">
-                    <input type="text" name="score-name" id="initials" class="text-input" placeholder="Enter Your Initials"/>
-                </div>
-                <div class="form-group">
-                    <button class="btn" id="save-score" type="button" draggable="true">Submit Score</button>
-                    
-                </div>
-            </form>
+            <ul id="choices"></ul>
+            <button id="StartTime">Start Quiz</button>
         </div>
     </div>
-    
+
     <script src="./assets/script.js"></script>
 </body>
-</html>
