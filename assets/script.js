@@ -72,7 +72,6 @@ function render(questionIndex) {
         var userQuestion = questionList[questionIndex].title;
         var userChoices = questionList[questionIndex].choices;
         questions.textContent = userQuestion;
-        getquestions(questionIndex);
     }
    
     // New for each for question choices
