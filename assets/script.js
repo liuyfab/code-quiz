@@ -46,7 +46,7 @@ var penalty = 10;
 var ulCreate = document.createElement("ul");
 
 timer.addEventListener("click", function () {
-    // We are checking zero because its originally set to zero
+    // set to 0
     if (HoldInterval === 0) {
         HoldInterval = setInterval(function () {
             secondsLeft--;
@@ -63,17 +63,14 @@ timer.addEventListener("click", function () {
 });
 
 function render(questionIndex) {
-    // Clears existing data 
     questions.innerHTML = "";
     ulCreate.innerHTML = "";
     // For loops to loop through all info in array
     for (var i = 0; i < questionList.length; i++) {
-        // Appends question title only
         var userQuestion = questionList[questionIndex].title;
         var userChoices = questionList[questionIndex].choices;
         questions.textContent = userQuestion;
     }
-   
     // New for each for question choices
     userChoices.forEach(function (newItem) {
         var listItem = document.createElement("li");
@@ -94,15 +91,18 @@ function compare(event) {
         // Correct condition 
         if (element.textContent == questionList[questionIndex].answer) {
             score++;
-            createDiv.textContent = "Correct!";
+            createDiv.textContent = "Correct! The correct answer is:" + questionList[questionIndex].answer;
             // Correct condition 
         } else {
-            // Will deduct -5 seconds off secondsLeft for wrong answers
+            // Will deduct -10 seconds off secondsLeft for wrong answers
             secondsLeft = secondsLeft - penalty;
-            createDiv.textContent = "Wrong!";
+            createDiv.textContent = "Wrong! The correct answer is:  " + questionList[questionIndex].answer;
         }
 
     }
+    // QuestionIndex ++ guarantee the questions go on one by one
+    questionIndex++;
+
     if (questionIndex >= questionList.length) {
         // All done will append last page with user stats
         allDone();
@@ -112,8 +112,7 @@ function compare(event) {
     }
     questions.appendChild(createDiv);
 
-}   
-
+}
 // All done will append last page
 function allDone() {
     questions.innerHTML = "";
@@ -136,7 +135,7 @@ function allDone() {
     if (secondsLeft >= 0) {
         var timeRemaining = secondsLeft;
         var createP2 = document.createElement("p");
-        clearInterval(HoldInterval);
+        clearInterval(holdInterval);
         createP.textContent = "Your final score is: " + timeRemaining;
 
         questions.appendChild(createP2);
@@ -189,8 +188,11 @@ function allDone() {
             var newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore);
             // Travels to final page
-            window.location.replace("./scores.html");
+            window.location.replace("./HighScores.html");
         }
     });
 
 }
+
+
+
