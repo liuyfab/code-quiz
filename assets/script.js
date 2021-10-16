@@ -41,19 +41,19 @@ var questions = document.querySelector("#questions");
 var wrapper = document.querySelector("#wrapper");
 
 var secondsLeft = 60;
-var Interval = 0;
+var HoldInterval = 0;
 var penalty = 10;
 var ulCreate = document.createElement("ul");
 
 timer.addEventListener("click", function () {
     // We are checking zero because its originally set to zero
-    if (Interval === 0) {
-        Interval = setInterval(function () {
+    if (HoldInterval === 0) {
+        HoldInterval = setInterval(function () {
             secondsLeft--;
             currentTime.textContent = "Time: " + secondsLeft;
 
             if (secondsLeft <= 0) {
-                clearInterval(Interval);
+                clearInterval(HoldInterval);
                 allDone();
                 currentTime.textContent = "Time's up!";
             }
@@ -72,7 +72,9 @@ function render(questionIndex) {
         var userQuestion = questionList[questionIndex].title;
         var userChoices = questionList[questionIndex].choices;
         questions.textContent = userQuestion;
+        getquestions(questionIndex);
     }
+   
     // New for each for question choices
     userChoices.forEach(function (newItem) {
         var listItem = document.createElement("li");
@@ -93,12 +95,12 @@ function compare(event) {
         // Correct condition 
         if (element.textContent == questionList[questionIndex].answer) {
             score++;
-            createDiv.textContent = "Correct! The answer is:  " + questionList[questionIndex].answer;
+            createDiv.textContent = "Correct!";
             // Correct condition 
         } else {
             // Will deduct -5 seconds off secondsLeft for wrong answers
             secondsLeft = secondsLeft - penalty;
-            createDiv.textContent = "Wrong! The correct answer is:  " + questionList[questionIndex].answer;
+            createDiv.textContent = "Wrong!";
         }
 
     }
@@ -135,7 +137,7 @@ function allDone() {
     if (secondsLeft >= 0) {
         var timeRemaining = secondsLeft;
         var createP2 = document.createElement("p");
-        clearInterval(Interval);
+        clearInterval(HoldInterval);
         createP.textContent = "Your final score is: " + timeRemaining;
 
         questions.appendChild(createP2);
@@ -188,7 +190,7 @@ function allDone() {
             var newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore);
             // Travels to final page
-            window.location.replace("./HighScores.html");
+            window.location.replace("./scores.html");
         }
     });
 

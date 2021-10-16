@@ -86,12 +86,12 @@ h1 {
 }
 
 li {
-    background-color: rgb(73, 73, 221)e;
+    background-color: rgb(73, 73, 221);
     margin-top: 10px;
     padding: 5px 15px;
     width: 80%;
     font-size: 18px;
-    color: white;
+    color: black;
 }
 
 #createDiv {
