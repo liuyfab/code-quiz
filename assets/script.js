@@ -40,20 +40,20 @@ var timer = document.querySelector("#StartTime");
 var questions = document.querySelector("#questions");
 var wrapper = document.querySelector("#wrapper");
 
-var secondsLeft = 60;
-var HoldInterval = 0;
+var secondsLeft = 30;
+var holdInterval = 0;
 var penalty = 10;
 var ulCreate = document.createElement("ul");
 
 timer.addEventListener("click", function () {
     // set to 0
-    if (HoldInterval === 0) {
-        HoldInterval = setInterval(function () {
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
             secondsLeft--;
             currentTime.textContent = "Time: " + secondsLeft;
 
             if (secondsLeft <= 0) {
-                clearInterval(HoldInterval);
+                clearInterval(holdInterval);
                 allDone();
                 currentTime.textContent = "Time's up!";
             }
@@ -91,12 +91,12 @@ function compare(event) {
         // Correct condition 
         if (element.textContent == questionList[questionIndex].answer) {
             score++;
-            createDiv.textContent = "Correct! The correct answer is:" + questionList[questionIndex].answer;
+            createDiv.textContent = "Correct!";
             // Correct condition 
         } else {
             // Will deduct -10 seconds off secondsLeft for wrong answers
             secondsLeft = secondsLeft - penalty;
-            createDiv.textContent = "Wrong! The correct answer is:  " + questionList[questionIndex].answer;
+            createDiv.textContent = "Wrong!";
         }
 
     }
@@ -105,7 +105,7 @@ function compare(event) {
 
     if (questionIndex >= questionList.length) {
         // All done will append last page with user stats
-        allDone();
+        allDone()
         createDiv.textContent = "End of quiz!" + " " + "You got  " + score + "/" + questionList.length + " Correct!";
     } else {
         render(questionIndex);
@@ -188,7 +188,7 @@ function allDone() {
             var newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore);
             // Travels to final page
-            window.location.replace("./HighScores.html");
+            window.location.replace("./scores.html");
         }
     });
 
